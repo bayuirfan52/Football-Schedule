@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Football Schedule</string>
+
+    <string name="default_rv_text">Item Data</string>
+    <string name="default_score">0</string>
+    <string name="text_vs">VS</string>
+    <string name="last_match">Last Match</string>
+    <string name="next_match">Next Match</string>
+    <string name="team_badge">team_badge</string>
+    <string name="goals">Goals</string>
+    <string name="red_cards">Red Cards</string>
+    <string name="yellow_cards">Yellow Cards</string>
+    <string name="goalkeeper">Goalkeeper</string>
+    <string name="lineup">Lineup</string>
+    <string name="cards">Cards</string>
+    <string name="defense">Defense</string>
+    <string name="midfield">Midfield</string>
+    <string name="forward">Forward</string>
+    <string name="substitute">Substitute</string>
+</resources>
