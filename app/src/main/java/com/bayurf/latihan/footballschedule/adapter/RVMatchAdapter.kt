@@ -21,7 +21,8 @@ class RVMatchAdapter(private val context : Context, private val eventItemItem : 
         lastMatchViewHolder.bindItem(eventItemItem[position], listener)
     }
 
-    class LastMatchViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer{
+    class LastMatchViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
+        LayoutContainer {
 
         fun bindItem(eventItem : EventItem, listener: (EventItem) -> Unit){
             last_date_event.text = eventItem.strDate
@@ -32,7 +33,7 @@ class RVMatchAdapter(private val context : Context, private val eventItemItem : 
             tv_last_home_score.text = eventItem.intHomeScore
             tv_last_away_score.text = eventItem.intAwayScore
 
-            containerView!!.setOnClickListener { listener(eventItem) }
+            containerView.setOnClickListener { listener(eventItem) }
         }
     }
 }

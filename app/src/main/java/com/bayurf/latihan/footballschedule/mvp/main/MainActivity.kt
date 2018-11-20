@@ -3,17 +3,11 @@ package com.bayurf.latihan.footballschedule.mvp.main
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.bayurf.latihan.footballschedule.R
 import com.bayurf.latihan.footballschedule.adapter.RVMatchAdapter
 import com.bayurf.latihan.footballschedule.api.LoadAPI
 import com.bayurf.latihan.footballschedule.data.EventItem
-import com.bayurf.latihan.footballschedule.data.League
-import com.bayurf.latihan.footballschedule.data.LeagueResponse
 import com.bayurf.latihan.footballschedule.mvp.detail.DetailMatchActivity
 import com.bayurf.latihan.footballschedule.utils.invisible
 import com.bayurf.latihan.footballschedule.utils.visible
@@ -24,58 +18,46 @@ import org.jetbrains.anko.startActivity
 class MainActivity : AppCompatActivity(), MainView {
     private lateinit var presenter: MainPresenter
     private lateinit var adapter : RVMatchAdapter
-    private lateinit var leagueItem : League
     private var eventItem : MutableList<EventItem> = mutableListOf()
-
-
-    companion object {
-        const val DETAIL_MATCH = "DETAIL_MATCH"
-    }
+    private var menuPosition: Boolean = true
+    private val league: String = "4328"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
         val gson = Gson()
         val loadAPI = LoadAPI()
         presenter = MainPresenter(this, gson, loadAPI)
-        presenter.getAllLeague()
-        adapter = RVMatchAdapter(this,eventItem){
-                eventItem : EventItem -> itemClick(eventItem) }
         rv_match.layoutManager = LinearLayoutManager(this)
-        rv_match.adapter = adapter
-    }
+        bottom_navigation.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.last_match -> {
+                    presenter.showLastEventData(league)
+                    menuPosition = true
+                }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.match_menu,menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item!!.itemId){
-            R.id.last_match -> presenter.showLastEventData(leagueItem.idLeague!!)
-            else -> presenter.showNextEventData(leagueItem.idLeague!!)
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun getListLeagueData(leagueData: LeagueResponse) {
-        select_league.adapter = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,leagueData.leagues)
-        
-        select_league.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                leagueItem = select_league.selectedItem as League
-                when(presenter.section){
-                    1 -> presenter.showLastEventData(leagueItem.idLeague!!)
-                    else -> presenter.showNextEventData(leagueItem.idLeague!!)
+                R.id.next_match -> {
+                    presenter.showNextEventData(league)
+                    menuPosition = true
+                }
+                R.id.favorites -> {
+                    presenter.showFavoriteData(this)
+                    menuPosition = false
                 }
             }
-
+            true
         }
+        bottom_navigation.selectedItemId = R.id.last_match
+        adapter = RVMatchAdapter(this,eventItem){
+            startActivity<DetailMatchActivity>("id" to "${it.idEvent}")
+        }
+        rv_match.adapter = adapter
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!menuPosition) presenter.showFavoriteData(this)
     }
 
     override fun showLoading() {
@@ -88,19 +70,21 @@ class MainActivity : AppCompatActivity(), MainView {
         rv_match.visible()
     }
 
-    override fun showLastEventData(data : List<EventItem>) {
+    override fun showMatch(data: List<EventItem>) {
         showEvent(data)
     }
 
-    override fun showNextEventData(data : List<EventItem>) {
-        showEvent(data)
+    override fun showEmpty() {
+        rv_match.invisible()
+        Toast.makeText(this, "Data kosong", Toast.LENGTH_SHORT).show()
     }
 
-    private fun itemClick(eventItem: EventItem){
-        startActivity<DetailMatchActivity>(DETAIL_MATCH to eventItem)
+    override fun showFavorite(data: List<EventItem>) {
+        showEvent(data)
     }
 
     private fun showEvent(data : List<EventItem>){
+        rv_match.visible()
         eventItem.clear()
         eventItem.addAll(data)
         adapter.notifyDataSetChanged()

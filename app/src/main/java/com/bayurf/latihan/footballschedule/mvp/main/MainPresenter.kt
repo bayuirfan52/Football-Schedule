@@ -1,29 +1,19 @@
 package com.bayurf.latihan.footballschedule.mvp.main
 
+import android.content.Context
 import com.bayurf.latihan.footballschedule.api.LoadAPI
 import com.bayurf.latihan.footballschedule.api.TheSportsDBApi
+import com.bayurf.latihan.footballschedule.data.EventItem
 import com.bayurf.latihan.footballschedule.data.EventResponse
-import com.bayurf.latihan.footballschedule.data.LeagueResponse
+import com.bayurf.latihan.footballschedule.database.database
 import com.google.gson.Gson
+import org.jetbrains.anko.db.classParser
+import org.jetbrains.anko.db.select
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
 class MainPresenter(val view: MainView, private val gson: Gson, private val loadAPI: LoadAPI){
     var section = 1
-
-    fun getAllLeague(){
-        view.showLoading()
-        doAsync {
-            val data = gson.fromJson(loadAPI
-                .doRequest(TheSportsDBApi.getAllLeagues()),
-                LeagueResponse::class.java)
-
-            uiThread {
-                view.hideLoading()
-                view.getListLeagueData(data)
-            }
-        }
-    }
 
     fun showLastEventData(league : String){
         this.section = 1
@@ -36,7 +26,12 @@ class MainPresenter(val view: MainView, private val gson: Gson, private val load
 
             uiThread {
                 view.hideLoading()
-                view.showLastEventData(data.events)
+                try {
+                    view.showMatch(data.events)
+                } catch (e: NullPointerException) {
+                    view.showEmpty()
+                }
+
             }
         }
     }
@@ -52,9 +47,29 @@ class MainPresenter(val view: MainView, private val gson: Gson, private val load
 
             uiThread {
                 view.hideLoading()
-                view.showNextEventData(data.events)
+                try {
+                    view.showMatch(data.events)
+                } catch (e: NullPointerException) {
+                    view.showEmpty()
+                }
+
             }
         }
     }
 
+    fun showFavoriteData(context: Context?) {
+        val eventItem: MutableList<EventItem> = mutableListOf()
+        eventItem.clear()
+        context?.database?.use {
+            val favorite = select(EventItem.TABLE_FAVORITE)
+                .parseList(classParser<EventItem>())
+            eventItem.addAll(favorite)
+        }
+
+        if (eventItem.size > 0) {
+            view.showFavorite(eventItem)
+        } else {
+            view.showEmpty()
+        }
+    }
 }
