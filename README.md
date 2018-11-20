@@ -1,27 +1,42 @@
 # Aplikasi Footbal Schedule
-## Submission 2
+## Submission 3
 
-Aplikasi quiz yang bertujuan untuk menampilkan daftar pertandingan terakhir dan pertandingan yang akan datang berbasis android dengan bahasa pemrograman Kotlin. 
+Aplikasi quiz yang bertujuan untuk menampilkan daftar pertandingan terakhir dan pertandingan yang akan datang sekaligus Event Favorit berbasis android dengan bahasa pemrograman Kotlin.
 
 ## Persyaratan dari pembuatan aplikasi ini adalah sebagai berikut :
 
-### Fitur yang harus ada pada aplikasi Anda adalah:
+Syarat
 
-1. Menampilkan 15 jadwal pertandingan, baik yang terakhir maupun yang mendatang berdasarkan League ID. Anda bebas menentukan League ID yang akan digunakan.
+Fitur yang harus ada pada aplikasi Anda adalah:
 
-2. Menampilkan detail pertandingan dari jadwal yang dipilih.
+Semua fitur pada aplikasi sebelumnya harus tetap dipertahankan.
 
-3. Di dalam halaman detail pertandingan, wajib menampilkan logo dari masing-masing tim.
+Menyimpan jadwal pertandingan ke halaman Favorite.
 
-### Catatan:
+Menghapus jadwal pertandingan dari halaman Favorite.
 
-1. Anda bebas berkreasi dalam membuat aplikasi ini. Tampilan dari aplikasi tidak harus sama dengan contoh yang diberikan.
+Catatan:
 
-2. Anda bebas menggunakan library dari luar, misalnya Retrofit, Rx, dll.
+Anda bebas berkreasi dalam membuat aplikasi ini. Tampilan dari aplikasi tidak harus sama dengan contoh yang diberikan.
 
-3. Dalam menyusun tampilan diperbolehkan menggunakan Anko maupun XML
-    
-## Hasil dari submission ini mendapatkan arahan dan saran sebagai berikut : 
+Wajib menggunakan Anko SQLite.
+
+Dalam menyusun tampilan, Anda boleh menggunakan Anko Layout ataupun XML.
+
+
+Ketentuan dari aplikasi yang Anda serahkan adalah:
+
+Proyek dari aplikasi harus menggunakan Android Studio.
+
+Bahasa pemrograman yang digunakan adalah Kotlin.
+
+Kirim pekerjaan dalam bentuk folder Proyek Android Studio yang telah di-zip/rar. Tim penilai akan mengulas tugas Anda dalam tempo maksimal 3 (tiga) hari kerja (terkecuali Sabtu, Minggu, dan hari libur nasional). 
+
+Cukup satu kali saja mengumpulkan tugas, tidak perlu berkali-kali. Tindakan demikian hanya akan memperlama proses penilaian.
+
+Anda akan mendapat notifikasi hasil pengumpulan Anda via email, atau Anda dapat mengecek submission pada akun Dicoding Anda.
+
+## Hasil dari submission sebelumnya mendapatkan arahan dan saran sebagai berikut : 
     
 Untuk menampilkan data pada EventDetailActivity, gunakanlah endpoint 
 
@@ -41,8 +56,7 @@ Sehingga menjadi:
 
 <code>intentData.idHomeTeam?.let { intentData.idAwayTeam?.let { it1 -> presenter.getTeamBadge(it, it1) } }</code>
  
-## Notes :
-    
-Gunakan repositori ini sebagai bahan referensi dan pembelajaran kedepan. Akan rugi sendiri ketika tidak memahami alur kerja kode yang dibuat.
-    
-### Selamat ngoding!!! 
+# Notes :
+
+## Credits :
+All PNG Icons licensed by CC 3.0 BY. Author : Papedesign from https://www.flaticon.com/
