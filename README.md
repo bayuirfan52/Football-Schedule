@@ -1,5 +1,5 @@
 # Aplikasi Footbal Schedule
-## Submission 3
+## Submission 4
 
 Aplikasi quiz yang bertujuan untuk menampilkan daftar pertandingan terakhir dan pertandingan yang akan datang sekaligus Event Favorit berbasis android dengan bahasa pemrograman Kotlin.
 
@@ -7,54 +7,29 @@ Aplikasi quiz yang bertujuan untuk menampilkan daftar pertandingan terakhir dan 
 
 Syarat
 
-Fitur yang harus ada pada aplikasi Anda adalah:
+Pertahankan semua fitur pada aplikasi sebelumnya.
 
-Semua fitur pada aplikasi sebelumnya harus tetap dipertahankan.
+Menerapkan unit tests pada beberapa fungsi, misalnya fungsi untuk request data ke server.
 
-Menyimpan jadwal pertandingan ke halaman Favorite.
-
-Menghapus jadwal pertandingan dari halaman Favorite.
+Menerapkan instrumentation tests dengan skenario yang Anda buat sendiri sesuai behaviour pada aplikasi.
 
 Catatan:
 
-Anda bebas berkreasi dalam membuat aplikasi ini. Tampilan dari aplikasi tidak harus sama dengan contoh yang diberikan.
+Anda bebas menggunakan library apapun dalam menerapkan pengujian.
 
-Wajib menggunakan Anko SQLite.
-
-Dalam menyusun tampilan, Anda boleh menggunakan Anko Layout ataupun XML.
-
-
-Ketentuan dari aplikasi yang Anda serahkan adalah:
-
-Proyek dari aplikasi harus menggunakan Android Studio.
-
-Bahasa pemrograman yang digunakan adalah Kotlin.
-
-Kirim pekerjaan dalam bentuk folder Proyek Android Studio yang telah di-zip/rar. Tim penilai akan mengulas tugas Anda dalam tempo maksimal 3 (tiga) hari kerja (terkecuali Sabtu, Minggu, dan hari libur nasional). 
-
-Cukup satu kali saja mengumpulkan tugas, tidak perlu berkali-kali. Tindakan demikian hanya akan memperlama proses penilaian.
-
-Anda akan mendapat notifikasi hasil pengumpulan Anda via email, atau Anda dapat mengecek submission pada akun Dicoding Anda.
+Tuliskan skenario pengujian Anda (unit tests & instrumentation tests) pada kolom komentar ketika Anda ingin mengumpulkan tugas ini.
 
 ## Hasil dari submission sebelumnya mendapatkan arahan dan saran sebagai berikut : 
     
-Untuk menampilkan data pada EventDetailActivity, gunakanlah endpoint 
+Update library <code>Glide</code> yang digunakan ke versi yang terbaru.
 
-https://www.thesportsdb.com/api/v1/json/1/lookupevent.php?id=EVENT_ID
+Hapuslah resource yang tidak pernah digunakan. Anda bisa menggunakan menu  *Refactor - Remove Unused Resources*
 
-Jadi Anda tidak perlu melemparkan banyak data menggunakan intent.putExtra.
+Fungsi dan variable yang hanya diakses sekali dalam sebuah file, sebaiknya dijadikan private.
 
-Hapus kode atau menyederhanakan code yang sesuai dengan convention. Anda bisa memanfaatkan fitur Analyze - Code Cleanup.
+Hapus variable, fungsi, kelas atau kode lainnya yang tidak pernah digunakan, seperti  data class <code>LeagueResponse</code> dan <code>League</code>.
 
-Biasakan untuk reformat code dan optimized import supaya code lebih rapi dan bersih dari unused import.
-
-Hindari penggunaan double bang operator (!!) saat pengecekan null, karena akan memaksa suatu variable menjadi non-null. Dan jika ternyata variable tersebut bernilai null, maka bisa menyebabkan NPE. Pelajari kembali tentang fitur  Null Safety.  Periksa kembali semua kode Anda dan jangan biarkan satupun double bang operator tersisa. Sebagai contoh pada:
-
-<code>presenter.getTeamBadge(intentData.idHomeTeam!!,intentData.idAwayTeam!!)</code>
-
-Sehingga menjadi:
-
-<code>intentData.idHomeTeam?.let { intentData.idAwayTeam?.let { it1 -> presenter.getTeamBadge(it, it1) } }</code>
+Silahkan perbaiki layout anda karena sepertinya match terakhir tertutup oleh bottom navigation.
  
 # Notes :
 

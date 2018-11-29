@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
-        android:id="@+id/detail_scrollview"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -152,13 +151,12 @@
                 android:padding="@dimen/padding"
                 android:gravity="center">
             <TextView
-                    android:id="@+id/detail_home_goal_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/default_rv_text"
                     android:gravity="center"
-            />
+                    android:id="@+id/detail_home_goal_details"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -167,13 +165,12 @@
                     android:paddingRight="@dimen/padding"
             />
             <TextView
-                    android:id="@+id/detail_away_goal_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/default_rv_text"
                     android:gravity="center"
-            />
+                    android:id="@+id/detail_away_goal_details"/>
 
         </LinearLayout>
 
@@ -196,13 +193,12 @@
                 android:padding="@dimen/padding"
         >
             <TextView
-                    android:id="@+id/detail_home_red_cards"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/default_rv_text"
                     android:gravity="center"
-            />
+                    android:id="@+id/detail_home_red_cards"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -211,13 +207,12 @@
                     android:paddingRight="@dimen/padding"
             />
             <TextView
-                    android:id="@+id/detail_away_red_cards"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/default_rv_text"
                     android:gravity="center"
-            />
+                    android:id="@+id/detail_away_red_cards"/>
 
         </LinearLayout>
 
@@ -229,13 +224,12 @@
                 android:padding="@dimen/padding"
         >
             <TextView
-                    android:id="@+id/detail_home_yellow_cards"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/default_rv_text"
                     android:gravity="center"
-            />
+                    android:id="@+id/detail_home_yellow_cards"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -244,13 +238,12 @@
                     android:paddingRight="@dimen/padding"
             />
             <TextView
-                    android:id="@+id/detail_away_yellow_cards"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/default_rv_text"
                     android:gravity="center"
-            />
+                    android:id="@+id/detail_away_yellow_cards"/>
 
         </LinearLayout>
 
@@ -273,13 +266,12 @@
                 android:padding="@dimen/padding"
         >
             <TextView
-                    android:id="@+id/detail_home_goalkeeper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/default_rv_text"
                     android:gravity="center"
-            />
+                    android:id="@+id/detail_home_goalkeeper"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -288,13 +280,12 @@
                     android:paddingRight="@dimen/padding"
             />
             <TextView
-                    android:id="@+id/detail_away_goalkeeper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/default_rv_text"
                     android:gravity="center"
-            />
+                    android:id="@+id/detail_away_goalkeeper"/>
 
         </LinearLayout>
         <LinearLayout
@@ -305,13 +296,12 @@
                 android:padding="@dimen/padding"
         >
             <TextView
-                    android:id="@+id/detail_home_defense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/default_rv_text"
                     android:gravity="center"
-            />
+                    android:id="@+id/detail_home_defense"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -320,13 +310,12 @@
                     android:paddingRight="@dimen/padding"
             />
             <TextView
-                    android:id="@+id/detail_away_defense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/default_rv_text"
                     android:gravity="center"
-            />
+                    android:id="@+id/detail_away_defense"/>
 
         </LinearLayout>
         <LinearLayout
@@ -337,13 +326,12 @@
                 android:padding="@dimen/padding"
         >
             <TextView
-                    android:id="@+id/detail_home_midfield"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/default_rv_text"
                     android:gravity="center"
-            />
+                    android:id="@+id/detail_home_midfield"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -352,13 +340,12 @@
                     android:paddingRight="@dimen/padding"
             />
             <TextView
-                    android:id="@+id/detail_away_midfield"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/default_rv_text"
                     android:gravity="center"
-            />
+                    android:id="@+id/detail_away_midfield"/>
 
         </LinearLayout>
         <LinearLayout
@@ -369,13 +356,12 @@
                 android:padding="@dimen/padding"
         >
             <TextView
-                    android:id="@+id/detail_home_forward"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/default_rv_text"
                     android:gravity="center"
-            />
+                    android:id="@+id/detail_home_forward"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -384,13 +370,12 @@
                     android:paddingRight="@dimen/padding"
             />
             <TextView
-                    android:id="@+id/detail_away_forward"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/default_rv_text"
                     android:gravity="center"
-            />
+                    android:id="@+id/detail_away_forward"/>
         </LinearLayout>
 
         <LinearLayout
@@ -401,13 +386,12 @@
                 android:padding="@dimen/padding"
         >
             <TextView
-                    android:id="@+id/detail_home_substitute"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/default_rv_text"
                     android:gravity="center"
-            />
+                    android:id="@+id/detail_home_substitute"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -416,13 +400,12 @@
                     android:paddingRight="@dimen/padding"
             />
             <TextView
-                    android:id="@+id/detail_away_substitute"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/default_rv_text"
                     android:gravity="center"
-            />
+                    android:id="@+id/detail_away_substitute"/>
         </LinearLayout>
 
     </LinearLayout>
