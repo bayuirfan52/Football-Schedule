@@ -1,5 +1,6 @@
 package com.bayurf.latihan.footballschedule.main
 
+import com.bayurf.latihan.footballschedule.TestContextProvider
 import com.bayurf.latihan.footballschedule.api.LoadAPI
 import com.bayurf.latihan.footballschedule.api.TheSportsDBApi
 import com.bayurf.latihan.footballschedule.data.EventItem
@@ -7,11 +8,13 @@ import com.bayurf.latihan.footballschedule.data.EventResponse
 import com.bayurf.latihan.footballschedule.mvp.main.MainPresenter
 import com.bayurf.latihan.footballschedule.mvp.main.MainView
 import com.google.gson.Gson
-import org.jetbrains.anko.doAsync
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 
 class LastmatchTest {
@@ -29,7 +32,7 @@ class LastmatchTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        presenter = MainPresenter(view, gson, loadAPI)
+        presenter = MainPresenter(view, gson, loadAPI, TestContextProvider())
     }
 
     @Test
@@ -38,11 +41,11 @@ class LastmatchTest {
         val response = EventResponse(events)
         val id = "4328"
 
-        doAsync {
-            Mockito.`when`(
+        GlobalScope.launch {
+            `when`(
                 gson.fromJson(
                     loadAPI
-                        .doRequest(TheSportsDBApi.getLastEventData(id)),
+                        .doRequest(TheSportsDBApi.getLastEventData(id)).await(),
                     EventResponse::class.java
                 )
             ).thenReturn(response)

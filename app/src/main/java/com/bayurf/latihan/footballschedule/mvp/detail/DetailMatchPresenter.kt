@@ -4,45 +4,47 @@ import com.bayurf.latihan.footballschedule.api.LoadAPI
 import com.bayurf.latihan.footballschedule.api.TheSportsDBApi
 import com.bayurf.latihan.footballschedule.data.EventResponse
 import com.bayurf.latihan.footballschedule.data.TeamResponse
+import com.bayurf.latihan.footballschedule.utils.CoroutineContextProvider
 import com.google.gson.Gson
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-class DetailMatchPresenter(val view : DetailMatchView, val gson: Gson, val loadAPI: LoadAPI) {
+class DetailMatchPresenter(
+    val view: DetailMatchView,
+    val gson: Gson,
+    val loadAPI: LoadAPI,
+    private val context: CoroutineContextProvider = CoroutineContextProvider()
+) {
 
     fun getTeamBadge(idHomeTeam : String, idAwayTeam : String){
         view.showLoading()
 
-        doAsync {
+        GlobalScope.launch(context.main) {
             val imageHomeBadge = gson.fromJson(loadAPI
-                .doRequest(TheSportsDBApi.getTeamDetail(idHomeTeam)),
+                .doRequest(TheSportsDBApi.getTeamDetail(idHomeTeam)).await(),
                 TeamResponse::class.java)
 
             val imageAwayBadge = gson.fromJson(loadAPI
-                .doRequest(TheSportsDBApi.getTeamDetail(idAwayTeam)),
+                .doRequest(TheSportsDBApi.getTeamDetail(idAwayTeam)).await(),
                 TeamResponse::class.java)
 
-            uiThread {
                 imageHomeBadge.teams.let { imageAwayBadge.teams.let { it1 -> view.showImageBadgeExtra(it, it1) } }
                 view.hideLoading()
-            }
         }
     }
 
     fun getEventDetail(idEvent: String) {
         view.showLoading()
 
-        doAsync {
+        GlobalScope.launch(context.main) {
             val eventDetail = gson.fromJson(
                 loadAPI
-                    .doRequest(TheSportsDBApi.getEventDetails(idEvent)),
+                    .doRequest(TheSportsDBApi.getEventDetails(idEvent)).await(),
                 EventResponse::class.java
             )
 
-            uiThread {
                 view.showDetailData(eventDetail.events)
                 view.hideLoading()
-            }
         }
     }
 }
