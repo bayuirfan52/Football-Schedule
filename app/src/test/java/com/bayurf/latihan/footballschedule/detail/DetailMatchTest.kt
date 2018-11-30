@@ -1,5 +1,6 @@
 package com.bayurf.latihan.footballschedule.detail
 
+import com.bayurf.latihan.footballschedule.TestContextProvider
 import com.bayurf.latihan.footballschedule.api.LoadAPI
 import com.bayurf.latihan.footballschedule.api.TheSportsDBApi
 import com.bayurf.latihan.footballschedule.data.EventItem
@@ -7,11 +8,13 @@ import com.bayurf.latihan.footballschedule.data.EventResponse
 import com.bayurf.latihan.footballschedule.mvp.detail.DetailMatchPresenter
 import com.bayurf.latihan.footballschedule.mvp.detail.DetailMatchView
 import com.google.gson.Gson
-import org.jetbrains.anko.doAsync
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 
 class DetailMatchTest {
@@ -29,20 +32,20 @@ class DetailMatchTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        presenter = DetailMatchPresenter(view, gson, loadAPI)
+        presenter = DetailMatchPresenter(view, gson, loadAPI, TestContextProvider())
     }
 
     @Test
-    fun testGetTeamDetail() {
+    fun testGetEventDetail() {
         val events: MutableList<EventItem> = mutableListOf()
         val response = EventResponse(events)
         val id = "441613"
 
-        doAsync {
-            Mockito.`when`(
+        GlobalScope.launch {
+            `when`(
                 gson.fromJson(
                     loadAPI
-                        .doRequest(TheSportsDBApi.getEventDetails(id)),
+                        .doRequest(TheSportsDBApi.getEventDetails(id)).await(),
                     EventResponse::class.java
                 )
             ).thenReturn(response)

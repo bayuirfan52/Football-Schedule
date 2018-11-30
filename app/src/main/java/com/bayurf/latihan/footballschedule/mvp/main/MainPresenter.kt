@@ -6,33 +6,36 @@ import com.bayurf.latihan.footballschedule.api.TheSportsDBApi
 import com.bayurf.latihan.footballschedule.data.EventItem
 import com.bayurf.latihan.footballschedule.data.EventResponse
 import com.bayurf.latihan.footballschedule.database.database
+import com.bayurf.latihan.footballschedule.utils.CoroutineContextProvider
 import com.google.gson.Gson
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.select
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 
-class MainPresenter(val view: MainView, private val gson: Gson, private val loadAPI: LoadAPI){
+class MainPresenter(
+    val view: MainView,
+    private val gson: Gson,
+    private val loadAPI: LoadAPI,
+    private val context: CoroutineContextProvider = CoroutineContextProvider()
+) {
     var section = 1
 
     fun showLastEventData(league : String){
         this.section = 1
         view.showLoading()
 
-        doAsync {
+        GlobalScope.launch(context.main) {
             val data = gson.fromJson(loadAPI
-                .doRequest(TheSportsDBApi.getLastEventData(league)),
+                .doRequest(TheSportsDBApi.getLastEventData(league)).await(),
                 EventResponse::class.java)
 
-            uiThread {
                 view.hideLoading()
                 try {
                     view.showMatch(data.events)
                 } catch (e: NullPointerException) {
                     view.showEmpty()
                 }
-
-            }
         }
     }
 
@@ -40,27 +43,23 @@ class MainPresenter(val view: MainView, private val gson: Gson, private val load
         this.section = 2
         view.showLoading()
 
-        doAsync {
+        GlobalScope.launch(context.main) {
             val data = gson.fromJson(loadAPI
-                .doRequest(TheSportsDBApi.getNextEventData(idLeague)),
+                .doRequest(TheSportsDBApi.getNextEventData(idLeague)).await(),
                 EventResponse::class.java)
-
-            uiThread {
                 view.hideLoading()
                 try {
                     view.showMatch(data.events)
                 } catch (e: NullPointerException) {
                     view.showEmpty()
                 }
-
-            }
         }
     }
 
-    fun showFavoriteData(context: Context?) {
+    fun showFavoriteData(funContext: Context?) {
         val eventItem: MutableList<EventItem> = mutableListOf()
         eventItem.clear()
-        context?.database?.use {
+        funContext?.database?.use {
             val favorite = select(EventItem.TABLE_FAVORITE)
                 .parseList(classParser<EventItem>())
             eventItem.addAll(favorite)
