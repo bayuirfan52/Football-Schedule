@@ -17,7 +17,7 @@ import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 
-class LastmatchTest {
+class LastMatchTest {
     @Mock
     private lateinit var view: MainView
 

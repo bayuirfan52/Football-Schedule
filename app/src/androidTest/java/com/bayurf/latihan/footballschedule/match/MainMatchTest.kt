@@ -53,12 +53,8 @@ class MainMatchTest {
 
         Thread.sleep(2000)
 
-        onView(withId(R.id.rv_match)).perform(
-            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                0,
-                click()
-            )
-        )
+        onView(withId(R.id.rv_match))
+            .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
 
         Thread.sleep(3000)
         onView(withId(R.id.add_fav_detail_menu))
