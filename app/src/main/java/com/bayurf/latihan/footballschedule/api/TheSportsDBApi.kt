@@ -1,44 +1,19 @@
 package com.bayurf.latihan.footballschedule.api
 
-import android.net.Uri
 import com.bayurf.latihan.footballschedule.BuildConfig
 
 object TheSportsDBApi {
 
     fun getLastEventData(idLeague : String?) : String {
-        return Uri.parse(BuildConfig.BASE_URL).buildUpon()
-            .appendPath("api")
-            .appendPath("v1")
-            .appendPath("json")
-            .appendPath(BuildConfig.TSDB_API_KEY)
-            .appendPath("eventspastleague.php")
-            .appendQueryParameter("id", idLeague)
-            .build()
-            .toString()
+        return "${BuildConfig.BASE_URL}api/v1/json/${BuildConfig.TSDB_API_KEY}/eventspastleague.php?id=${idLeague}"
     }
 
     fun getNextEventData(idLeague : String?) : String {
-        return Uri.parse(BuildConfig.BASE_URL).buildUpon()
-            .appendPath("api")
-            .appendPath("v1")
-            .appendPath("json")
-            .appendPath(BuildConfig.TSDB_API_KEY)
-            .appendPath("eventsnextleague.php")
-            .appendQueryParameter("id", idLeague)
-            .build()
-            .toString()
+        return "${BuildConfig.BASE_URL}api/v1/json/${BuildConfig.TSDB_API_KEY}/eventsnextleague.php?id=${idLeague}"
     }
 
     fun getEventDetails(id: String?): String {
-        return Uri.parse(BuildConfig.BASE_URL).buildUpon()
-            .appendPath("api")
-            .appendPath("v1")
-            .appendPath("json")
-            .appendPath(BuildConfig.TSDB_API_KEY)
-            .appendPath("lookupevent.php")
-            .appendQueryParameter("id", id)
-            .build()
-            .toString()
+        return "${BuildConfig.BASE_URL}api/v1/json/${BuildConfig.TSDB_API_KEY}/lookupevent.php?id=${id}"
     }
 
     fun getTeamDetail(idTeam : String?) : String{

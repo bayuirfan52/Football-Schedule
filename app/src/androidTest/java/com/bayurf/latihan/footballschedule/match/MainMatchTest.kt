@@ -25,7 +25,7 @@ class MainMatchTest {
     @Test
     fun testRecyclerViewBehavior() {
 
-        Thread.sleep(10000)
+        Thread.sleep(5000)
         onView(withId(R.id.rv_match))
             .check(matches(isDisplayed()))
 
@@ -33,9 +33,11 @@ class MainMatchTest {
         onView(withId(R.id.rv_match))
             .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(10))
 
-        Thread.sleep(1000)
+        Thread.sleep(3000)
         onView(withId(R.id.rv_match))
             .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(10, click()))
+
+        Thread.sleep(3000)
     }
 
     //    Submission
@@ -53,12 +55,8 @@ class MainMatchTest {
 
         Thread.sleep(2000)
 
-        onView(withId(R.id.rv_match)).perform(
-            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                0,
-                click()
-            )
-        )
+        onView(withId(R.id.rv_match))
+            .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(3, click()))
 
         Thread.sleep(3000)
         onView(withId(R.id.add_fav_detail_menu))
