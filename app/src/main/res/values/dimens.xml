@@ -15,4 +15,5 @@
     <dimen name="date">15sp</dimen>
     <dimen name="team_score">20sp</dimen>
     <dimen name="detail_score">40sp</dimen>
+    <dimen name="iv_team">60dp</dimen>
 </resources>

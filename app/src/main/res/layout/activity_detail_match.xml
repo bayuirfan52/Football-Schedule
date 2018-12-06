@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".mvp.detail.DetailMatchActivity">
+        tools:context=".mvp.detail.match.DetailMatchActivity">
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,6 +29,16 @@
                 android:textSize="@dimen/date"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
+        />
+
+        <TextView
+                android:id="@+id/detail_time_event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/default_rv_text"
+                android:gravity="center"
+                android:textSize="@dimen/team_name"
+                android:textColor="@color/colorAccent"
         />
 
         <LinearLayout

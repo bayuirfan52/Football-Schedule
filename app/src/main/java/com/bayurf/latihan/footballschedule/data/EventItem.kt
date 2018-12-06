@@ -8,7 +8,8 @@ data class EventItem(
     val id: Int?,
     val idEvent: String?,
 
-    val strDate : String?,
+    val dateEvent: String?,
+    val strTime: String?,
 
     //Team Name
     val strHomeTeam : String?,
@@ -54,6 +55,7 @@ data class EventItem(
         const val ID: String = "ID"
         const val ID_EVENT: String = "ID_EVENT"
         const val EVENT_DATE: String = "EVENT_DATE"
+        const val EVENT_TIME: String = "EVENT_TIME"
         const val HOME_TEAM: String = "HOME_TEAM"
         const val AWAY_TEAM: String = "AWAY_TEAM"
         const val HOME_ID: String = "HOME_ID"

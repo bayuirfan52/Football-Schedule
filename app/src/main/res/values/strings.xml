@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">Football Schedule</string>
+    <string name="app_name">Football Apps</string>
 
     <string name="default_rv_text">Item Data</string>
     <string name="default_score">0</string>
     <string name="text_vs">VS</string>
-    <string name="last_match">Last Match</string>
-    <string name="next_match">Next Match</string>
+    <string name="match">Match</string>
+    <string name="teams">Teams</string>
     <string name="team_badge">team_badge</string>
     <string name="goals">Goals</string>
     <string name="red_cards">Red Cards</string>
@@ -18,4 +18,12 @@
     <string name="forward">Forward</string>
     <string name="substitute">Substitute</string>
     <string name="favorites">Favorites</string>
+
+    <string name="player_photo">Player Photo</string>
+    <string name="player">player</string>
+    <string name="search">Search</string>
+    <string name="height">Height (m)</string>
+    <string name="weight">weight (Kg)</string>
+    <string name="overview">OVERVIEW</string>
+    <string name="pl_detail">PLAYER LIST</string>
 </resources>

@@ -6,20 +6,12 @@
                 android:orientation="vertical"
                 tools:context=".mvp.main.MainActivity">
 
-    <ProgressBar
-            android:id="@+id/pg_loading_progress_bar"
+    <FrameLayout
+            android:id="@+id/frame_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:indeterminateOnly="true"
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottom_layout"
     />
-
-        <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_match"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@id/bottom_layout"
-        />
 
         <LinearLayout
                 android:id="@+id/bottom_layout"
