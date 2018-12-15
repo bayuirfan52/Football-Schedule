@@ -26,6 +26,12 @@ Untuk memasang listener pada viewholder sebaiknya dilakukan di onCreateViewHolde
  
 # Notes :
 
+Update beberapa library yang digunakan ke versi yang terbaru.
+
+Akan lebih baik jika elevation pada Toolbar dihapus.
+
+Fungsi ataupun variable yang hanya digunakan pada kelas yang sama sebaiknya dijadikan private.
+Hindari penggunaan berlebihan fungsi Thread.sleep() saat menerapkan instrumentation tests & sebaiknya gunakan Idling Resources.
 
 ## Credits :
 All PNG Icons licensed by CC 3.0 BY. Author : Papedesign from https://www.flaticon.com/
