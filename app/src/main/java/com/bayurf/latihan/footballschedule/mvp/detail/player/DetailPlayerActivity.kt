@@ -1,7 +1,7 @@
 package com.bayurf.latihan.footballschedule.mvp.detail.player
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.bayurf.latihan.footballschedule.R
 import com.bayurf.latihan.footballschedule.data.PlayerItem
 import com.bumptech.glide.Glide
@@ -20,7 +20,7 @@ class DetailPlayerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail_player)
         supportActionBar?.title = "Player Detail"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        playerItem = intent.getParcelableExtra(EXTRA_PARAMS)
+        playerItem = intent.getParcelableExtra(EXTRA_PARAMS)!!
         extractData(playerItem)
     }
 

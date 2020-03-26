@@ -1,9 +1,10 @@
 package com.bayurf.latihan.footballschedule.mvp.main.match
 
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,10 +22,9 @@ import com.bayurf.latihan.footballschedule.mvp.main.view.MatchView
 import com.bayurf.latihan.footballschedule.utils.collectingArrayData
 import com.bayurf.latihan.footballschedule.utils.invisible
 import com.bayurf.latihan.footballschedule.utils.visible
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_last_match.*
-import org.jetbrains.anko.design.snackbar
-import org.jetbrains.anko.support.v4.startActivity
 
 /**
  * A simple [Fragment] subclass.
@@ -53,13 +53,16 @@ class LastMatchFragment : Fragment(), MatchView {
         context?.let {
             last_match_spinner.collectingArrayData(it)
             adapterRV = RVMatchAdapter(it, eventItem) {
-                startActivity<DetailMatchActivity>("id" to "${it.idEvent}")
+                val intent =  Intent(context, DetailMatchActivity::class.java)
+                intent.putExtra("id", "${it.idEvent}")
+                startActivity(intent)
             }
         }
 
         with(rv_last_match) {
             adapter = adapterRV
-            layoutManager = LinearLayoutManager(context)
+            layoutManager =
+                LinearLayoutManager(context)
         }
 
         presenter.getAllLeagues()
@@ -97,7 +100,7 @@ class LastMatchFragment : Fragment(), MatchView {
 
     override fun showEmpty() {
         rv_last_match.invisible()
-        snackbar(pg_last_match, "Data tidak ditemukan..").show()
+        Snackbar.make(pg_last_match, "Data tidak ditemukan..", Snackbar.LENGTH_SHORT).show()
     }
 
     private fun showEvent(data: List<EventItem>) {

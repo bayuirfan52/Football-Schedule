@@ -21,7 +21,7 @@ class DetailTeamPresenter(
         GlobalScope.launch(context.main) {
             val data = gson.fromJson(
                 loadAPI
-                    .doRequest(TheSportsDBApi.getTeamDetail(id)).await(),
+                    .doRequest(TheSportsDBApi.getTeamDetail(id)),
                 TeamResponse::class.java
             )
 

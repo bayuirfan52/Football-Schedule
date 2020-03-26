@@ -1,8 +1,9 @@
 package com.bayurf.latihan.footballschedule.mvp.detail.team.fragment
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,11 +17,10 @@ import com.bayurf.latihan.footballschedule.mvp.detail.presenter.TeamListPresente
 import com.bayurf.latihan.footballschedule.mvp.detail.view.TeamListView
 import com.bayurf.latihan.footballschedule.utils.invisible
 import com.bayurf.latihan.footballschedule.utils.visible
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_player_list.*
 import org.jetbrains.anko.bundleOf
-import org.jetbrains.anko.design.snackbar
-import org.jetbrains.anko.support.v4.startActivity
 
 class PlayerListFragment : Fragment(), TeamListView {
     private lateinit var presenter: TeamListPresenter
@@ -54,13 +54,16 @@ class PlayerListFragment : Fragment(), TeamListView {
 
         context?.let {
             adapterRV = RVPlayerAdapter(it, listPlayer) {
-                startActivity<DetailPlayerActivity>(EXTRA_PARAMS to it)
+                val intent =  Intent(context, DetailPlayerActivity::class.java)
+                intent.putExtra(EXTRA_PARAMS, it)
+                startActivity(intent)
             }
         }
 
         with(rv_player_list) {
             adapter = adapterRV
-            layoutManager = LinearLayoutManager(context)
+            layoutManager =
+                LinearLayoutManager(context)
         }
         idTeam?.let { presenter.getPlayerList(it) }
     }
@@ -84,6 +87,6 @@ class PlayerListFragment : Fragment(), TeamListView {
 
     override fun showEmpty() {
         rv_player_list.invisible()
-        snackbar(pg_player_list, "Data tidak ditemukan..").show()
+        Snackbar.make(pg_player_list, "Data tidak ditemukan..", Snackbar.LENGTH_SHORT).show()
     }
 }

@@ -2,8 +2,8 @@ package com.bayurf.latihan.footballschedule.mvp.detail.match
 
 import android.database.sqlite.SQLiteConstraintException
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ProgressBar
@@ -18,13 +18,13 @@ import com.bayurf.latihan.footballschedule.utils.FormatDate
 import com.bayurf.latihan.footballschedule.utils.invisible
 import com.bayurf.latihan.footballschedule.utils.visible
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_detail_match.*
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
-import org.jetbrains.anko.design.snackbar
 
 class DetailMatchActivity : AppCompatActivity(), DetailMatchView {
 
@@ -32,7 +32,7 @@ class DetailMatchActivity : AppCompatActivity(), DetailMatchView {
     private lateinit var gson: Gson
     private lateinit var eventData: EventItem
     private lateinit var loadAPI: LoadAPI
-    private lateinit var intentData: String
+    private var intentData: String? = ""
     private lateinit var progressBar: ProgressBar
     private var isEventItem: Boolean = false
     private var menuItem: Menu? = null
@@ -51,7 +51,7 @@ class DetailMatchActivity : AppCompatActivity(), DetailMatchView {
         gson = Gson()
         loadAPI = LoadAPI()
         presenter = DetailMatchPresenter(this, gson, loadAPI)
-        presenter.getEventDetail(intentData)
+        intentData?.let { presenter.getEventDetail(it) }
     }
 
     override fun showLoading() {
@@ -146,8 +146,8 @@ class DetailMatchActivity : AppCompatActivity(), DetailMatchView {
 
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             android.R.id.home -> {
                 finish()
                 true
@@ -168,10 +168,10 @@ class DetailMatchActivity : AppCompatActivity(), DetailMatchView {
             val result = select(EventItem.TABLE_FAVORITE)
                 .whereArgs(
                     "(ID_EVENT = {idEvent})",
-                    "idEvent" to intentData
+                    "idEvent" to intentData!!
                 )
             val favorite = result.parseList(classParser<EventItem>())
-            if (!favorite.isEmpty()) isEventItem = true
+            if (favorite.isNotEmpty()) isEventItem = true
         }
     }
 
@@ -209,19 +209,19 @@ class DetailMatchActivity : AppCompatActivity(), DetailMatchView {
                 EventItem.AWAY_LINEUP_SUBSTITUTE to eventData.strAwayLineupSubstitutes
             )
         }
-        snackbar(progressBar, "Event telah ditambahkan ke Favorit").show()
+        Snackbar.make(progressBar, "Event telah ditambahkan ke Favorit", Snackbar.LENGTH_SHORT).show()
     } catch (e: SQLiteConstraintException) {
-        snackbar(progressBar, e.localizedMessage).show()
+        Snackbar.make(progressBar, e.localizedMessage!!, Snackbar.LENGTH_SHORT).show()
     }
 
     private fun removeFromEventItem() {
         try {
             database.use {
-                delete(EventItem.TABLE_FAVORITE, "(ID_EVENT = {idEvent})", "idEvent" to intentData)
+                delete(EventItem.TABLE_FAVORITE, "(ID_EVENT = {idEvent})", "idEvent" to intentData!!)
             }
-            snackbar(progressBar, "Event telah dihapus dari Favorit").show()
+            Snackbar.make(progressBar, "Event telah dihapus dari Favorit", Snackbar.LENGTH_SHORT).show()
         } catch (e: SQLiteConstraintException) {
-            snackbar(progressBar, e.localizedMessage).show()
+            Snackbar.make(progressBar, e.localizedMessage!!, Snackbar.LENGTH_SHORT).show()
         }
     }
 

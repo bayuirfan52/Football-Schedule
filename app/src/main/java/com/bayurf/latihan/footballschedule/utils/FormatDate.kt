@@ -14,7 +14,7 @@ object FormatDate {
             val oldValue = oldDateOrTime.parse(dateOrTime)
             val newValue = SimpleDateFormat(formatWillUse, Locale.US)
 
-            result = newValue.format(oldValue)
+            oldValue?.let { result = newValue.format(it) }
         } catch (e: ParseException) {
             e.printStackTrace()
         }

@@ -1,13 +1,13 @@
 package com.bayurf.latihan.footballschedule.api
 
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.net.URL
 
 class LoadAPI {
 
-    fun doRequest(url: String): Deferred<String> = GlobalScope.async {
-        URL(url).readText()
-    }
+    suspend fun doRequest(url: String): String =
+        withContext(Dispatchers.Default) {
+            URL(url).readText()
+        }
 }

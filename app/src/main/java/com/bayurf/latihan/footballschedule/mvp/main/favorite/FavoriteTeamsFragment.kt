@@ -1,9 +1,10 @@
 package com.bayurf.latihan.footballschedule.mvp.main.favorite
 
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,10 +18,9 @@ import com.bayurf.latihan.footballschedule.mvp.main.presenter.TeamPresenter
 import com.bayurf.latihan.footballschedule.mvp.main.view.TeamView
 import com.bayurf.latihan.footballschedule.utils.invisible
 import com.bayurf.latihan.footballschedule.utils.visible
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_favorite_teams.*
-import org.jetbrains.anko.design.snackbar
-import org.jetbrains.anko.support.v4.startActivity
 
 /**
  * A simple [Fragment] subclass.
@@ -45,12 +45,15 @@ class FavoriteTeamsFragment : Fragment(), TeamView {
         teamItem = mutableListOf()
         context?.let {
             adapterRV = RVTeamsAdapter(it, teamItem) {
-                startActivity<DetailTeamsActivity>("id" to "${it.idTeam}")
+                val intent =  Intent(context, DetailTeamsActivity::class.java)
+                intent.putExtra("id", "${it.idTeam}")
+                startActivity(intent)
             }
         }
         with(rv_fav_team) {
             adapter = adapterRV
-            layoutManager = LinearLayoutManager(context)
+            layoutManager =
+                LinearLayoutManager(context)
         }
 
         presenter.showFavoriteData(context)
@@ -80,6 +83,6 @@ class FavoriteTeamsFragment : Fragment(), TeamView {
 
     override fun showEmpty() {
         rv_fav_team.invisible()
-        snackbar(rv_fav_team, "Data tidak ditemukan..")
+        Snackbar.make(rv_fav_team, "Data tidak ditemukan..", Snackbar.LENGTH_SHORT).show()
     }
 }

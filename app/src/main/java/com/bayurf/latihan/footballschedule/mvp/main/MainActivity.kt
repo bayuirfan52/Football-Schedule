@@ -1,8 +1,8 @@
 package com.bayurf.latihan.footballschedule.mvp.main
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import com.bayurf.latihan.footballschedule.R
 import com.bayurf.latihan.footballschedule.mvp.main.favorite.SelectFavoriteFragment
 import com.bayurf.latihan.footballschedule.mvp.main.match.MatchFragments

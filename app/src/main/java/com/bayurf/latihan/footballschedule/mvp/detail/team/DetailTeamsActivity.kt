@@ -2,8 +2,8 @@ package com.bayurf.latihan.footballschedule.mvp.detail.team
 
 import android.database.sqlite.SQLiteConstraintException
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.bayurf.latihan.footballschedule.R
@@ -18,13 +18,13 @@ import com.bayurf.latihan.footballschedule.mvp.detail.view.DetailTeamView
 import com.bayurf.latihan.footballschedule.utils.invisible
 import com.bayurf.latihan.footballschedule.utils.visible
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_detail_teams.*
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
-import org.jetbrains.anko.design.snackbar
 
 class DetailTeamsActivity : AppCompatActivity(), DetailTeamView {
     private lateinit var presenter: DetailTeamPresenter
@@ -40,7 +40,7 @@ class DetailTeamsActivity : AppCompatActivity(), DetailTeamView {
 
         presenter = DetailTeamPresenter(this, Gson(), LoadAPI())
 
-        dataExtra = intent.getStringExtra("id")
+        dataExtra = intent.getStringExtra("id")!!
 
         favoriteState()
 
@@ -87,8 +87,8 @@ class DetailTeamsActivity : AppCompatActivity(), DetailTeamView {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             android.R.id.home -> {
                 finish()
                 true
@@ -140,9 +140,9 @@ class DetailTeamsActivity : AppCompatActivity(), DetailTeamView {
             )
         }
 
-        snackbar(pg_team_detail, "Tim berhasil ditambahkan").show()
+        Snackbar.make(pg_team_detail, "Tim berhasil ditambahkan", Snackbar.LENGTH_SHORT).show()
     } catch (e: SQLiteConstraintException) {
-        snackbar(pg_team_detail, e.localizedMessage).show()
+        Snackbar.make(pg_team_detail, e.localizedMessage!!, Snackbar.LENGTH_SHORT).show()
     }
 
     private fun removeFromFavorite() = try {
@@ -150,9 +150,9 @@ class DetailTeamsActivity : AppCompatActivity(), DetailTeamView {
             delete(TeamItem.TABLE_TEAM, "(ID_TEAM = {idTeam})", "idTeam" to dataExtra)
 
         }
-        snackbar(pg_team_detail, "Data telah dihapus dari favorit").show()
+        Snackbar.make(pg_team_detail, "Data telah dihapus dari favorit", Snackbar.LENGTH_SHORT).show()
     } catch (e: SQLiteConstraintException) {
-        snackbar(pg_team_detail, e.localizedMessage).show()
+        Snackbar.make(pg_team_detail, e.localizedMessage!!, Snackbar.LENGTH_SHORT).show()
     }
 
     private fun setFavorite() {

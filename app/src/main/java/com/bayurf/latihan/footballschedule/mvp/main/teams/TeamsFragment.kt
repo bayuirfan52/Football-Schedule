@@ -1,10 +1,11 @@
 package com.bayurf.latihan.footballschedule.mvp.main.teams
 
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -21,10 +22,9 @@ import com.bayurf.latihan.footballschedule.mvp.main.view.TeamView
 import com.bayurf.latihan.footballschedule.utils.collectingArrayData
 import com.bayurf.latihan.footballschedule.utils.invisible
 import com.bayurf.latihan.footballschedule.utils.visible
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_teams.*
-import org.jetbrains.anko.design.snackbar
-import org.jetbrains.anko.support.v4.startActivity
 
 /**
  * A simple [Fragment] subclass.
@@ -54,7 +54,9 @@ class TeamsFragment : Fragment(), TeamView {
         context?.let {
             teams_spinner.collectingArrayData(it)
             adapterRV = RVTeamsAdapter(it, teamItem) {
-                startActivity<DetailTeamsActivity>("id" to "${it.idTeam}")
+                val intent =  Intent(context, DetailTeamsActivity::class.java)
+                intent.putExtra("id", "${it.idTeam}")
+                startActivity(intent)
             }
         }
         with(activity as AppCompatActivity) {
@@ -62,18 +64,19 @@ class TeamsFragment : Fragment(), TeamView {
         }
         with(rv_teams) {
             adapter = adapterRV
-            layoutManager = LinearLayoutManager(context)
+            layoutManager =
+                LinearLayoutManager(context)
         }
 
         presenter.getAllLeagues()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
 
-        inflater?.inflate(R.menu.search_menu, menu)
+        inflater.inflate(R.menu.search_menu, menu)
 
-        val searchMenu = menu?.findItem(R.id.search_item)
+        val searchMenu = menu.findItem(R.id.search_item)
         val view = searchMenu?.actionView as SearchView
 
         view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -128,7 +131,7 @@ class TeamsFragment : Fragment(), TeamView {
 
     override fun showEmpty() {
         rv_teams.invisible()
-        snackbar(pg_teams, "Data tidak ditemukan..").show()
+        Snackbar.make(pg_teams, "Data tidak ditemukan..", Snackbar.LENGTH_SHORT).show()
     }
 
     private fun showTeamList(data: List<TeamItem>) {

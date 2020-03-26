@@ -1,12 +1,12 @@
 package com.bayurf.latihan.footballschedule.adapter
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
 import com.bayurf.latihan.footballschedule.mvp.main.favorite.FavoriteMatchFragment
 import com.bayurf.latihan.footballschedule.mvp.main.favorite.FavoriteTeamsFragment
 
-class FavoriteFragmentAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
+class FavoriteFragmentAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private val pages: List<Fragment> = listOf(
         FavoriteMatchFragment(),

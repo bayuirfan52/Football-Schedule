@@ -1,8 +1,9 @@
 package com.bayurf.latihan.footballschedule.mvp.search
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import android.widget.SearchView
 import com.bayurf.latihan.footballschedule.R
@@ -12,10 +13,9 @@ import com.bayurf.latihan.footballschedule.data.EventItem
 import com.bayurf.latihan.footballschedule.mvp.detail.match.DetailMatchActivity
 import com.bayurf.latihan.footballschedule.utils.invisible
 import com.bayurf.latihan.footballschedule.utils.visible
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_search_event.*
-import org.jetbrains.anko.design.snackbar
-import org.jetbrains.anko.startActivity
 
 class SearchEventActivity : AppCompatActivity(), SearchMatchView {
     private lateinit var presenter: SearchMatchPresenter
@@ -30,14 +30,17 @@ class SearchEventActivity : AppCompatActivity(), SearchMatchView {
         presenter = SearchMatchPresenter(this, Gson(), LoadAPI())
         eventItem = mutableListOf()
         adapterRV = RVMatchAdapter(this, eventItem) {
-            startActivity<DetailMatchActivity>("id" to "${it.idEvent}")
+            val intent = Intent(this, DetailMatchActivity::class.java)
+            intent.putExtra("id", "${it.idEvent}")
+            startActivity(intent)
             finish()
         }
 
         pg_match_search.invisible()
 
         rv_match_search.adapter = adapterRV
-        rv_match_search.layoutManager = LinearLayoutManager(this)
+        rv_match_search.layoutManager =
+            LinearLayoutManager(this)
         presenter.getEventResult()
     }
 
@@ -86,6 +89,6 @@ class SearchEventActivity : AppCompatActivity(), SearchMatchView {
 
     override fun showEmpty() {
         rv_match_search.invisible()
-        snackbar(pg_match_search, "Data tidak ditemukan..")
+        Snackbar.make(pg_match_search, "Data tidak ditemukan..", Snackbar.LENGTH_SHORT).show()
     }
 }

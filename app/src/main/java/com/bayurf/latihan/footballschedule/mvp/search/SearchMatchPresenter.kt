@@ -21,7 +21,7 @@ class SearchMatchPresenter(
         GlobalScope.launch(context.main) {
             val data = gson.fromJson(
                 loadAPI
-                    .doRequest(TheSportsDBApi.searchEvent(newFormat)).await(),
+                    .doRequest(TheSportsDBApi.searchEvent(newFormat)),
                 EventSearchResponse::class.java
             )
 

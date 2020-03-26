@@ -22,11 +22,11 @@ class DetailMatchPresenter(
 
         GlobalScope.launch(context.main) {
             val imageHomeBadge = gson.fromJson(loadAPI
-                .doRequest(TheSportsDBApi.getTeamDetail(idHomeTeam)).await(),
+                .doRequest(TheSportsDBApi.getTeamDetail(idHomeTeam)),
                 TeamResponse::class.java)
 
             val imageAwayBadge = gson.fromJson(loadAPI
-                .doRequest(TheSportsDBApi.getTeamDetail(idAwayTeam)).await(),
+                .doRequest(TheSportsDBApi.getTeamDetail(idAwayTeam)),
                 TeamResponse::class.java)
 
                 imageHomeBadge.teams.let { imageAwayBadge.teams.let { it1 -> view.showImageBadgeExtra(it, it1) } }
@@ -40,7 +40,7 @@ class DetailMatchPresenter(
         GlobalScope.launch(context.main) {
             val eventDetail = gson.fromJson(
                 loadAPI
-                    .doRequest(TheSportsDBApi.getEventDetails(idEvent)).await(),
+                    .doRequest(TheSportsDBApi.getEventDetails(idEvent)),
                 EventResponse::class.java
             )
 

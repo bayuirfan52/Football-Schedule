@@ -2,8 +2,8 @@ package com.bayurf.latihan.footballschedule.mvp.main.match
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import android.view.*
 import com.bayurf.latihan.footballschedule.R
 import com.bayurf.latihan.footballschedule.adapter.MatchFragmentAdapter
@@ -37,14 +37,14 @@ class MatchFragments : Fragment() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
 
-        inflater?.inflate(R.menu.match_search, menu)
+        inflater.inflate(R.menu.match_search, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             R.id.match_search -> {
                 context?.startActivity<SearchEventActivity>()
 
